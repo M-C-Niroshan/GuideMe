@@ -1,0 +1,149 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.banner-image {
+  position: absolute;
+  top: 0;
+  background-image: url(/Frontend/public/images/sr.jpg);
+  height: 30vh; 
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.title-section {
+  z-index: 10;
+  padding: 14px 16px;
+  margin-top: 0;
+  max-width: 80%;
+  text-align: center;
+  font-size: 5vw; 
+  color: white;
+  background-color: teal;
+  width: fit-content;
+  margin: auto;
+  margin-top: 20vh;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 100%;
+  margin-block: 2vw;
+}
+
+.profile-section {
+  display: flex;
+  gap: 1.5px;
+  align-items: start;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.left-c, .right-c {
+  background-color: teal;
+  mix-blend-mode: darken;
+  height: 77px;
+  width: 146px;
+  border-radius: 52px 0 0 52px;
+}
+
+.right-c {
+  border-radius: 0 52px 52px 0;
+}
+
+.left-container {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.right-container {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+}
+
+.content-box {
+  flex-grow: 1;
+  padding: 5vw; 
+  background-color: rgba(0, 128, 128, 0.2);
+  width: fit-content;
+  margin-inline: 10vw;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  padding: 5vw 2vw; 
+  margin-top: 4vw;
+  width: 100%;
+  background-color: teal;
+}
+
+.footer-divider {
+  height: 1px;
+  background-color: #d3d3d3;
+}
+
+.footer-content {
+  margin-top: 1vw;
+  display: flex;
+  gap: 1vw;
+}
+
+.footer-column {
+  flex: 1;
+}
+
+.footer-text, .footer-highlight {
+  font-size: 0.9rem;
+  color: white;
+}
+
+.contact-section {
+  display: flex;
+  gap: 2px;
+  margin-top: 4px;
+}
+
+.social-icon {
+  width: 40px; 
+  aspect-ratio: 1 / 1; 
+}
+
+@media (max-width: 768px) {
+  .title-section {
+    font-size: 4vw;
+    margin-top: 15vh;
+  }
+
+  .profile-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-c, .right-c {
+    height: 50px;
+    width: 100px;
+  }
+
+  .content-box {
+    margin-inline: 5vw;
+    padding: 4vw;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .social-icon {
+    width: 30px;
+  }
+}
+

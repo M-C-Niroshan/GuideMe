@@ -1,12 +1,15 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import CardOverflow from "@mui/joy/CardOverflow";
 import Typography from "@mui/joy/Typography";
+import AspectRatio from '@mui/joy/AspectRatio';
 import Avatar from "@mui/joy/Avatar";
 import CircularProgress from "@mui/material/CircularProgress";
-import React, { useEffect, useState } from "react";
-import axios from "axios"; // Import axios
 import { useUserContext } from "../pages/UserContext";
+import { NavLink } from 'react-router-dom';
+import { Button } from '@mui/material';
 import "./Traveller.css";
 
 const textContainerStyle = {
@@ -20,15 +23,7 @@ const textContainerStyle = {
   wordWrap: "break-word",
 };
 
-const vehicleImageStyle = {
-  width: '100%',
-  height: 'auto',
-  borderRadius: '8px',
-  marginBottom: '8px',
-};
-
 const TravelerDashboard = () => {
-  // Example userData object
   const u_Data = {
     _id: "66a4632bb0a3d660a6c0a7ed",
     fName: "John",
@@ -40,20 +35,15 @@ const TravelerDashboard = () => {
     travelerId: 15,
   };
 
-  const { setUserData } = useUserContext(); // Get the setUserData method
-  const { userData } = useUserContext();
-
-  // State for reservation data
+  const { setUserData, userData } = useUserContext();
   const [guiderReservations, setGuiderReservations] = useState([]);
   const [vehicleReservations, setVehicleReservations] = useState([]);
   const [loadingGuider, setLoadingGuider] = useState(true);
   const [loadingVehicle, setLoadingVehicle] = useState(true);
 
   useEffect(() => {
-    // Setting user data using the userData variable
     setUserData(u_Data);
 
-    // Fetch guider reservations
     axios.get(`http://localhost:3001/api/guider-booking-details?travelerId=${u_Data.travelerId}`)
       .then(response => {
         setGuiderReservations(response.data);
@@ -64,7 +54,6 @@ const TravelerDashboard = () => {
         setLoadingGuider(false);
       });
 
-    // Fetch vehicle reservations
     axios.get(`http://localhost:3001/api/vehicle-rent-details?travelerId=${u_Data.travelerId}`)
       .then(response => {
         setVehicleReservations(response.data);
@@ -76,9 +65,8 @@ const TravelerDashboard = () => {
       });
   }, [setUserData]);
 
-  // Ensure userData is not null or undefined
   if (!userData) {
-    return <div>Loading...</div>; // Or some placeholder/loading UI
+    return <div>Loading...</div>;
   }
 
   return (
@@ -89,7 +77,7 @@ const TravelerDashboard = () => {
         orientation="horizontal"
         sx={{
           textAlign: "center",
-          height: "100vh",
+          height: "70vh",
           width: "100%",
           borderRadius: 0,
           display: "flex",
@@ -157,7 +145,6 @@ const TravelerDashboard = () => {
         </CardContent>
       </Card>
 
-      {/* Guider Reservations */}
       <div style={{ marginTop: "20px" }}>
         <Typography variant="h4" sx={{ textAlign: "center", mb: 2 }}>
           Guider Reservations
@@ -171,38 +158,46 @@ const TravelerDashboard = () => {
             <Typography>No guider reservations available.</Typography>
           </Card>
         ) : (
-          guiderReservations.map(reservation => (
-            <Card key={reservation.serviceId} sx={{ mb: 2 }}>
-              <CardOverflow variant="solid" color="primary">
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {guiderReservations.map(reservation => (
+              <Card
+                key={reservation.id}
+                sx={{
+                  width: 300,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  marginBottom: 2,
+                  marginX: 1,
+                  padding: 2
+                }}
+              >
                 <Avatar
                   alt="Guider Image"
                   src={reservation.guiderProfileImage}
-                  sx={{ width: 80, height: 80, mb: 2, mx: "auto" }}
+                  sx={{ width: 80, height: 80, mb: 2 }}
                 />
-                <Typography textColor="primary.200" sx={{ fontSize: "1.2rem" }}>
+                <Typography variant="h6" textAlign="center" sx={{ mb: 1 }}>
                   {reservation.guiderFname} {reservation.guiderLname}
                 </Typography>
-                <Typography textColor="primary.200">
+                <Typography textAlign="center" sx={{ mb: 1 }}>
                   {reservation.guiderEmail}
                 </Typography>
-              </CardOverflow>
-              <CardContent>
-                <Typography>
+                <Typography textAlign="center" sx={{ mb: 1 }}>
                   Reservation Date: {new Date(reservation.reservationDate).toLocaleDateString()}
                 </Typography>
-                <Typography>
+                <Typography textAlign="center" sx={{ mb: 1 }}>
                   Reservation Time: {reservation.reservationTime}
                 </Typography>
-                <Typography>
+                <Typography textAlign="center" sx={{ mb: 1 }}>
                   Contact: {reservation.guiderContactNum}
                 </Typography>
-              </CardContent>
-            </Card>
-          ))
+              </Card>
+            ))}
+          </div>
         )}
       </div>
 
-      {/* Vehicle Reservations */}
       <div style={{ marginTop: "20px" }}>
         <Typography variant="h4" sx={{ textAlign: "center", mb: 2 }}>
           Vehicle Reservations
@@ -216,42 +211,64 @@ const TravelerDashboard = () => {
             <Typography>No vehicle reservations available.</Typography>
           </Card>
         ) : (
-          vehicleReservations.map(reservation => (
-            <Card key={reservation.vehicleRentServiceId} sx={{ mb: 2 }}>
-              <CardOverflow variant="solid" color="primary">
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            {vehicleReservations.map(reservation => (
+              <Card
+                key={reservation.id}
+                sx={{
+                  width: 300,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  marginBottom: 2,
+                  marginX: 1,
+                  padding: 2
+                }}
+              >
+                <AspectRatio ratio="1/1" sx={{ width: '100%', mb: 2 }}>
+                  <img src={reservation.vehicleImage} alt="Vehicle Image" style={{ width: '100%', borderRadius: '8px' }} />
+                </AspectRatio>
+                <Typography variant="h6" textAlign="center" sx={{ mb: 1 }}>
+                  {reservation.vehicleType}
+                </Typography>
+                <Typography textAlign="center" sx={{ mb: 1 }}>
+                  {reservation.vehicleRegNum}
+                </Typography>
                 <Avatar
                   alt="Renter Image"
                   src={reservation.renterProfileImg}
-                  sx={{ width: 80, height: 80, mb: 2, mx: "auto" }}
+                  sx={{ width: 80, height: 80, mb: 2 }}
                 />
-                <Typography textColor="primary.200" sx={{ fontSize: "1.2rem" }}>
-                  {reservation.vehicleType}
-                </Typography>
-                <Typography textColor="primary.200">
-                  {reservation.vehicleRegNum}
-                </Typography>
-                <img
-                  src={reservation.vehicleImage}
-                  alt="Vehicle Image"
-                  style={vehicleImageStyle}
-                  sx={{ width: 80, height: 80, mb: 2, mx: "auto" }}
-                />
-              </CardOverflow>
-              <CardContent>
-                <Typography>
+                <Typography textAlign="center" sx={{ mb: 1 }}>
                   Pickup Date: {new Date(reservation.pickupDate).toLocaleDateString()} {reservation.pickupTime}
                 </Typography>
-                <Typography>
+                <Typography textAlign="center" sx={{ mb: 1 }}>
                   Handover Date: {new Date(reservation.handoverDate).toLocaleDateString()} {reservation.handoverTime}
                 </Typography>
-                <Typography>
+                <Typography textAlign="center" sx={{ mb: 1 }}>
                   Renter Contact: {reservation.renterContactNum}
                 </Typography>
-              </CardContent>
-            </Card>
-          ))
+              </Card>
+            ))}
+          </div>
         )}
       </div>
+      <NavLink to='/'>
+          <Button
+            variant="outlined"
+            color="primary"
+            sx={{
+              '--variant-borderWidth': '2px',
+              borderRadius: 40,
+              borderColor: 'primary.500',
+              mx: 'auto',
+              marginLeft:'auto',
+              marginRight:'auto',
+            }}
+          >
+            Home
+          </Button>
+        </NavLink>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box } from "@mui/material";
-import "./GuiderDash.css";
+import "./Guiderdash.css";
 
 const textContainerStyle = {
   width: "100%",
@@ -173,6 +173,8 @@ const GuiderDash = () => {
                   </Box>
                 )}
               </CardOverflow>
+
+              
               <CardContent>
                 <Typography>
                   Description: {service.description}
@@ -201,6 +203,7 @@ const GuiderDash = () => {
                     <Typography>Contact: {service.travelerContactNumber}</Typography>
                   </Box>
                 )}
+                
               </CardContent>
             </Card>
           ))

@@ -18,7 +18,7 @@ function Home(){
             <Tlanka/>
             <Cardslider/>
             <Festivals/> 
-             <Footer/>
+            <Footer/>
         </div>
     )
 }

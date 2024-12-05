@@ -34,6 +34,8 @@ import TravelerDashboard from './Components/Dashbord/Travaller';
 import Renterdash from './Components/Dashbord/Renterdash';
 import Guiderdash from './Components/Dashbord/Guiderdash';
 
+import AboutUs from './Components/AboutUs/AboutUs';
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -63,11 +65,13 @@ function App() {
             <Route path="/11" element={<AuthConGuider/>}></Route>
             <Route path="/12" element={<AuthContainer/>}></Route>
             <Route path="/13" element={<AuthConRenter/>}></Route>
-            <Route path='/14' element={<Userguider/>}></Route> 
+            <Route path='/PlanTrip' element={<Userguider/>}></Route> 
 
             <Route path='/15' element={<TravelerDashboard/>}></Route> 
             <Route path='/16' element={<Renterdash/>}></Route> 
             <Route path='/17' element={<Guiderdash/>}></Route> 
+
+            <Route path="/about-us" element={<AboutUs />} />
 
             {/* <Route path="/Test" element={<Test/>}></Route> */}
 

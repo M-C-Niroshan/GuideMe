@@ -25,5 +25,6 @@ router.post('/traveler', controller.addTraveler);
 
 router.post('/api/login', controller.loginUser);
 router.get('/guide-service-status', controller.getGuideServiceWithBookingStatus);
+router.get('/vehicle-rent-services', controller.getVehicleRentServicesForRenter);
 
 module.exports = router;

@@ -29,9 +29,9 @@ function Navigation() {
             </div>
 
             <nav ref={navRef}>
-                <NavLink to='/RentVehicle' activeClassName='active'>Rent a Vehicle</NavLink>
-                <NavLink to='/14' activeClassName='active'>Plan your trip</NavLink>
-                <NavLink to='/rss' activeClassName='active'>RSS Feed</NavLink>
+                <NavLink to='/PlanTrip' activeClassName='active'>Trip</NavLink>
+                <NavLink to='/BookGuider' activeClassName='active'>Guider</NavLink>
+                <NavLink to='/RentVehicle' activeClassName='active'>Vehicle</NavLink>
                 <NavLink to='/chat' activeClassName='active'>Live Chat</NavLink>
                 <NavLink to='/warranty' activeClassName='active'>Warranty</NavLink>
 

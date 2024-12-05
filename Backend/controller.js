@@ -485,6 +485,53 @@ const getGuideServiceWithBookingStatus = async (req, res, next) => {
     res.status(500).json({ error: error.message });
   }
 };
+const getVehicleRentServicesForRenter = async (req, res, next) => {
+  const { renterId } = req.query;
+
+  try {
+    // Find vehicle rental services for the given renterId
+    const vehicleRentServices = await VehicleRentService.find({ renterId }).exec();
+
+    // Get rent details for each vehicle service
+    const detailedServices = await Promise.all(vehicleRentServices.map(async (service) => {
+      // Find rent details for this service
+      const rentDetail = await VehicleRentDetails.findOne({ vehicleRentServiceId: service.vehicleRentServiceId }).exec();
+
+      let bookingStatus = "Available";
+      let bookedTraveler = {};
+
+      if (rentDetail) {
+        bookingStatus = "Booked";
+        // Fetch the booked traveler's details
+        bookedTraveler = await Traveler.findOne({ travelerId: rentDetail.travelerId }).exec();
+      }
+
+      return {
+        vehicleRentServiceId: service.vehicleRentServiceId,
+        vehicleRegNum: service.vehicleRegNum,
+        type: service.type,
+        vehicleImage: service.vehicleImage,
+        rentPrice: service.rentPrice,
+        avilableLocation: service.avilableLocation,
+        description: service.description,
+        rating: service.rating,
+        vehicleStatus: service.vehicleStatus,
+        serviceStatus: bookingStatus,
+        travelerId: bookedTraveler.travelerId || null,
+        travelerFname: bookedTraveler.fName || null,
+        travelerLname: bookedTraveler.lName || null,
+        travelerProfileImage: bookedTraveler.profileImage || null,
+        travelerEmail: bookedTraveler.email || null,
+        travelerContactNumber: bookedTraveler.contactNumber || null
+      };
+    }));
+
+    res.json(detailedServices);
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 
 
@@ -504,5 +551,6 @@ module.exports = {
   getTravelers,
   addTraveler,
   loginUser,
-  getGuideServiceWithBookingStatus
+  getGuideServiceWithBookingStatus,
+  getVehicleRentServicesForRenter
 };

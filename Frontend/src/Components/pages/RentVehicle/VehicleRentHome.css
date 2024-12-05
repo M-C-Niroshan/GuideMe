@@ -102,17 +102,10 @@
     font-size: 0.85em;
   }
 } */
-/* .Form {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  width: 100%;
-  box-sizing: border-box; 
-} */
 
 .travelheaderpvr{
   text-align: center;
-  background: linear-gradient(to right, #feca2e 20%, #a18c51 80%); 
+  background: linear-gradient(to right, #feca2e 20%, #dfe196 80%); 
   -webkit-background-clip: text; 
   -webkit-text-fill-color: transparent; 
   background-clip: text; 
@@ -123,7 +116,7 @@
   height: auto;
   width: 100%;
   position: absolute;
-  top: 18vh;
+  top: 20vh;
   color: white;
   font-weight: 900;
   font-size: 44px;
