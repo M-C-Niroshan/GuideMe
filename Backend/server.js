@@ -42,7 +42,3 @@ const server = app.listen(port, host, () =>
 );
 
 app.use("/api", router);
-
-app.listen(3001, () => {
-    console.log("Server is Running")
-})
